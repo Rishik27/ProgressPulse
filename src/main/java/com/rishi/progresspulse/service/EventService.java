@@ -18,9 +18,9 @@ public class EventService {
         return eventRepository.save(event);
     }
 
-    public List<Event> getUserEvents(Long userId){
-        return eventRepository.findByUserId(userId);
-    }
+    //public List<Event> getUserEvents(Long userId){
+      //  return eventRepository.findByUserId(userId);
+    //}
     public void deleteEvent(Long id){
         eventRepository.deleteById(id);
     }
