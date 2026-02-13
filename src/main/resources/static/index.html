@@ -1,21 +1,49 @@
 <!DOCTYPE html>
-<h1>PROGRESS PULSE</h1>
+<html lang="en">
+<head>
+    <title>Progress Pulse</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+
 <body>
-<input type="text" id="eventName" placeholder="Event Name">
-<br>
-<select id="eventType">
-    <option>Graduation</option>
-    <option>Gym</option>
-    <option>Job</option>
-    <option>Work</option>
-    <option>Custom</option>
-</select>
 
-<input type="datetime-local" id="startDate">
-<button onclick="addEvent()">Add New Event</button>
+<header class="hero">
+    <h1>PROGRESS PULSE</h1>
+    <p>Track your progress, Live Happy!!</p>
+</header>
 
-<div id="events"></div>
-<link rel="stylesheet" href="styles.css">
-<script src="script.js"></script>
+<div class="container">
+
+    <div class="form-row">
+        <input id="eventName" type="text" placeholder="Event Name">
+
+        <select id="eventType">
+            <option value="Graduation Date">Graduation</option>
+            <option value="Gym">Gym Start</option>
+            <option value="New Job">New Job</option>
+            <option value="Custom Event">Custom Event</option>
+        </select>
+
+        <!-- FIXED TYPE -->
+        <input type="date" id="startDate">
+    </div>
+
+    <button onclick="addEvent()">Add New Event</button>
+
+    <!-- TABLE TO SHOW EVENTS -->
+    <table class="event-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody id="eventTable"></tbody>
+    </table>
+
+</div>
+
+<script src="/script.js"></script>
 </body>
 </html>

@@ -1,42 +1,50 @@
-const userId = 1; //Initial ID of user
+const userId = 1;
 
 async function addEvent() {
+
+    const name = document.getElementById("eventName").value;
+    const type = document.getElementById("eventType").value;
+    const startDate = document.getElementById("startDate").value;
+
+    if (!name || !startDate) {
+        alert("Please fill all the required fields");
+        return;
+    }
+
     const event = {
-        eventName: document.getElementById("eventName").value,
-        eventType: document.getElementById("eventType").value,
-        startDate: document.getElementById("startDate").value,
-        user: {id: userId}
+        name: name,
+        type: type,
+        date: startDate
     };
-     await fetch("api/events", {
+
+    await fetch("/events", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json"},
-            body: JSON.stringify(event)
-     });
-     loadEvents();
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(event)
+    });
+
+    alert("Event Added Successfully!");
+    loadEvents();
 }
 
 async function loadEvents() {
-    const response = await fetch("api/events/${userId}");
+
+    const response = await fetch("/events");
     const events = await response.json();
 
-    const container = document.getElementById("events");
-    container.innerHTML = "";
+    const table = document.getElementById("eventTable");
+    table.innerHTML = "";
 
-    events.forEach(event => {
-        const today = new Date();
-        const newstart = new Date(event.startDate);
-        const difference = today - newstart;
-        const days = Math.floor(difference / (1000 * 60 *60 *24));
-
-        container.innerHTML += `<div>
-            <h3>${event.eventName}</h3>
-            <p>${days} Days Passed</p>
-            <p>${event.eventType}</p>
-            <p>${new Date(event.startDate).toLocaleDateString()}</p>
-            </div>`;
-    })
+    events.forEach(e => {
+        table.innerHTML += `
+            <tr>
+                <td>${e.name}</td>
+                <td>${e.type}</td>
+                <td>${e.date}</td>
+            </tr>
+        `;
+    });
 }
 
-loadEvents();
-setInterval(loadEvents, 1000);
+window.onload = loadEvents;
+
