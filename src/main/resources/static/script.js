@@ -26,7 +26,22 @@ async function addEvent() {
     alert("Event Added Successfully!");
     loadEvents();
 }
+async function deleteEvent(){
+    const name = document.getElementById("EventName").value;
+    const type = document.getElementById("EventType").value;
+    const startDate = document.getElementById("StartDate").value;
+    if (!name) {
+        alert("Please enter the event name to delete");
+        return;
+    }
 
+    await fetch(`/events/${name}`, {
+        method: "DELETE"
+    });
+
+    alert("Event Deleted Successfully!");
+    loadEvents();
+}
 async function loadEvents() {
 
     const response = await fetch("/events");
